@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+        My App
+    </title>
+    {{> stylesheet }}
+</head>
+
+<body>
+    {{> header }}
+    <div class="container">
+        <div class="page-header m-t-1">
+            <h1>
+                {{ title }}
+            </h1>
+        </div>
+        <p class="lead">Welcome to {{title}}
+        </p>
+    </div>
+    {{> footer}}
+    {{> javascript }}
+</body>
+
+</html>
