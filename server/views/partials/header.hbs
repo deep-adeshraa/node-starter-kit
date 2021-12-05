@@ -10,30 +10,37 @@
             <div class="collapse navbar-toggleable-xs" id="exCollapsingNavbar2">
                 <a class="navbar-brand" href="/">My App</a>
                 <ul class="nav navbar-nav navbar-right">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/login">
-                            Sign in
-                        </a>
-                    </li>
+                    {{#unless isLoggedIn}}
+                        <li class="nav-item">
+                            <a class="nav-link" href="/login">
+                                Sign in
+                            </a>
+                        </li>
 
-                    <li class="nav-item">
-                        <a class="nav-link" href="/signup">
-                            Sign up
-                        </a>
-                    </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/signup">
+                                Sign up
+                            </a>
+                        </li>
+                    {{/unless}}
 
-                    <li class="nav-item">
-                        <a class="nav-link" href="/profile">Profile</a>
-                    </li>
+                    {{#if isLoggedIn}}
+                        <li class="nav-item">
+                            <a class="nav-link" href="/profile">Profile</a>
+                        </li>
 
-                    <li class="nav-item">
-                        <a class="nav-link" href="/comments">Comments</a>
-                    </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/comments">Comments</a>
+                        </li>
 
-                    <li class="nav-item">
-                        <a class="nav-link" href="/logout">Logout</a>
-                    </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/logout">Logout</a>
+                        </li>
 
+                        <li class="nav-item">
+                            <a class="nav-link">Hello {{userName}}</a>
+                        </li>
+                    {{/if}}
                 </ul>
             </div>
         </div>

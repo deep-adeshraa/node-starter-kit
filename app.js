@@ -47,6 +47,18 @@ app.use(passport.initialize());
 // persistent login sessions
 app.use(passport.session());
 
+
+// Global variable to check loggedin or not
+app.use(function(req, res, next) {
+	app.locals.isLoggedIn = req.isAuthenticated();
+
+	if (app.locals.isLoggedIn) {
+		app.locals.userName = req.user.local.name;
+		console.log("hi", req.user.local.name)
+	}
+	next();
+});
+
 app.use(flash());
 app.use(logger('dev'));
 app.use(express.json());
@@ -59,7 +71,7 @@ var indexRouter = require('./server/routes/index');
 var usersRouter = require('./server/routes/users');
 var commentsRouter;
 
-// Our controllers
+// Our controllers : TODO: move it to routes
 var comments = require('./server/controllers/comments_controller');
 
 // Our Paths

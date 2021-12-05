@@ -5,7 +5,9 @@ var gravatar = require('gravatar');
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-	res.render('index', { title: 'Express from server folder' });
+	res.render('index', {
+		title: 'Welcome to software suggestion'
+	});
 });
 
 /* GET login page. */
