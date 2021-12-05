@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+        {{title}}
+    </title>
+    {{> stylesheet }}
+</head>
+
+<body>
+    {{> header }}
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <h4 class="text-muted">Softwares</h4>
+            </div>
+        </div>
+        <hr />
+        <form action="/softwares/search" method="get">
+            <div class="row text-center">
+                <input type="text" class="form-control center-block" style="width: 60%;" />
+                <button class="btn btn-primary search-button">Search</button>
+            </div>
+        </form>
+
+        {{#if topSoftwares}}
+            <h3>Top Softwares</h3>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Tag</th>
+                        <th scope="col">Rating</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each softwares}}
+                        <tr>
+                            <th scope="row">{{inc @index}}</th>
+                            <td>{{name}}</td>
+                            <td>{{tag}}</td>
+                            <td>{{rating}}</td>
+                        </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+
+        {{/if}}
+    </div>
+
+    {{> footer}}
+    {{> javascript }}
+</body>
+
+</html>

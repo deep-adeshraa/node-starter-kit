@@ -49,12 +49,11 @@ app.use(passport.session());
 
 
 // Global variable to check loggedin or not
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
 	app.locals.isLoggedIn = req.isAuthenticated();
 
 	if (app.locals.isLoggedIn) {
 		app.locals.userName = req.user.local.name;
-		console.log("hi", req.user.local.name)
 	}
 	next();
 });
@@ -68,17 +67,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Our Routes
 var indexRouter = require('./server/routes/index');
-var usersRouter = require('./server/routes/users');
-var commentsRouter;
-
-// Our controllers : TODO: move it to routes
-var comments = require('./server/controllers/comments_controller');
+var commentsRouter = require('./server/routes/comments');
+var softwareRouter = require('./server/routes/softwares');
 
 // Our Paths
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
-app.get('/comments', comments.hasAuthorization, comments.list);
-app.post('/comments', comments.hasAuthorization, comments.create);
+app.use('/comments', commentsRouter);
+app.use('/softwares', softwareRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -95,6 +90,12 @@ app.use(function (err, req, res, next) {
 	res.status(err.status || 500);
 	res.render('error');
 });
+
+// Helper funciton to do mathmatics ops
+hbs.registerHelper("inc", function (value, options) {
+	return parseInt(value) + 1;
+});
+
 
 // Set the port
 app.set('port', process.env.PORT || 3000);
