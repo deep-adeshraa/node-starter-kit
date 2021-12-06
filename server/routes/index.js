@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var passport = require('passport');
 var gravatar = require('gravatar');
+var User = require('../models/user')
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
@@ -20,10 +21,22 @@ router.get('/login', function (req, res, next) {
 
 /* POST login */
 router.post('/login', passport.authenticate('local-login', {
-	successRedirect: '/profile',
 	failureRedirect: '/login',
 	failureFlash: true
-}));
+}), function (req, res) {
+	User.findOne({ email: req.user.email }, function (err, user) {
+		if (err) {
+			res.redirect('/login');
+			return;
+		}
+
+		if (user.role == 1) {
+			res.redirect('/profile');
+		} else {
+			res.redirect('/admin');
+		}
+	});
+});
 
 /* GET Signup */
 router.get('/signup', function (req, res) {
@@ -62,6 +75,10 @@ function isLoggedIn(req, res, next) {
 	if (req.isAuthenticated())
 		return next();
 	res.redirect('/login');
+}
+
+function isAdmin(req) {
+	return req.isAuthenticated() && req.user.role == 0;
 }
 
 module.exports = router;

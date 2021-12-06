@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+        Admin
+    </title>
+    {{> stylesheet }}
+</head>
+
+<body>
+    {{> header }}
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <h4 class="text-muted">Hello Admin</h4>
+            </div>
+
+            <div class="col-lg-6">
+                <button type="button" class="btn btn-secondary pull-right" data-toggle="modal"
+                    data-target="#createPost">
+                    Create Software
+                </button>
+            </div>
+        </div>
+
+        <div class="modal fade" id="createPost" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <form action="/comments" method="post">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <h4 class="modal-title" id="myModalLabel">
+                                Create Software</h4>
+                        </div>
+
+                        <div class="modal-body">
+                            <fieldset class="form-group">
+                                <label for="inputitle">Name</label>
+                                <input type="text" id="inputitle" name="name" class="form-control"
+                                    placeholder="Software name" required="">
+                            </fieldset>
+                            <fieldset class="form-group">
+                                <label for="inputContent">Details</label>
+                                <textarea id="inputContent" name="details" class="form-control"
+                                    placeholder="Software Description" required="">
+                                </textarea>
+                            </fieldset>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{> footer}}
+    {{> javascript }}
+</body>
+
+</html>

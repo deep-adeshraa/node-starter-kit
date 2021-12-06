@@ -4,7 +4,7 @@ var gravatar = require('gravatar');
 
 // List top rated softwares
 exports.listTopItems = function (req, res) {
-    Software.find().sort('-rating').exec(function (error, softwares) {
+    Software.find().sort('-rating').limit(10).exec(function (error, softwares) {
         if (error) {
             return res.send(400, {
                 message: error

@@ -1,5 +1,8 @@
 var mongoose = require('mongoose');
-var bcrypt   = require('bcrypt-nodejs');
+var bcrypt = require('bcrypt-nodejs');
+
+ADMIN = 0
+USER = 1
 
 var userSchema = mongoose.Schema({
     // Using local for Local Strategy Passport
@@ -7,7 +10,8 @@ var userSchema = mongoose.Schema({
         name: String,
         email: String,
         password: String,
-    }
+    },
+    role: {type: Number, enum:{ADMIN, USER}, default: USER}
 });
 
 userSchema.methods.generateHash = function(password) {
