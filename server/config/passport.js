@@ -17,7 +17,6 @@ module.exports = function (passport) {
 
     // using local strategy
     passport.use('local-login', new LocalStrategy({
-        // change default username and password, to email and password
         usernameField: 'email',
         passwordField: 'password',
         passReqToCallback: true
@@ -47,7 +46,6 @@ module.exports = function (passport) {
 
     // Signup local strategy
     passport.use('local-signup', new LocalStrategy({
-        // change default username and password, to email and password
         usernameField: 'email',
         passwordField: 'password',
         passReqToCallback: true

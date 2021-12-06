@@ -18,16 +18,25 @@ exports.listTopItems = function (req, res) {
     });
 };
 
-// Create Comments
+// Search software
 exports.searchSoftware = function (req, res) {
-    var query = req
+    var query = req.query
 
-    res.render('softwares', {
-        title: 'Software Page',
-        softwares: softwares,
-        topSoftwares: true
-    });
+    Software.find({tag: { $regex: "^" + query.searchQuery } })
+        .sort('-rating').exec(function (error, softwares) {
+            if (error) {
+                return res.send(400, {
+                    message: error
+                });
+            }
+            console.log(softwares)
 
+            res.render('softwares', {
+                title: 'Software Page',
+                softwares: softwares,
+                searchQuery: query.searchQuery
+            });
+        });
 };
 
 exports.hasAuthorization = function (req, res, next) {

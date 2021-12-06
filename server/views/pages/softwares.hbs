@@ -19,13 +19,18 @@
         <hr />
         <form action="/softwares/search" method="get">
             <div class="row text-center">
-                <input type="text" class="form-control center-block" style="width: 60%;" />
+                <input type="text" name="searchQuery" placeholder="Search by tags" class="form-control center-block" style="width: 60%;" />
                 <button class="btn btn-primary search-button">Search</button>
             </div>
         </form>
 
         {{#if topSoftwares}}
             <h3>Top Softwares</h3>
+        {{/if}}
+        {{#unless topSoftwares}}
+            <h3>Searched Softwares for : {{searchQuery}}</h3>
+        {{/unless}}
+
             <table class="table">
                 <thead>
                     <tr>
@@ -47,7 +52,6 @@
                 </tbody>
             </table>
 
-        {{/if}}
     </div>
 
     {{> footer}}
