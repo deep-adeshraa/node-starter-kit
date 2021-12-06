@@ -10,4 +10,7 @@ router.get('/', softwareController.hasAuthorization,
 router.get('/search', softwareController.hasAuthorization,
     softwareController.searchSoftware);
 
+router.get('/:id', softwareController.hasAuthorization,
+    softwareController.getSoftwareById)
+
 module.exports = router;
