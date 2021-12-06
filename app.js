@@ -54,6 +54,7 @@ app.use(function (req, res, next) {
 
 	if (app.locals.isLoggedIn) {
 		app.locals.userName = req.user.local.name;
+		app.locals.isAdmin = req.user.role == 0;
 	}
 	next();
 });
@@ -98,7 +99,7 @@ hbs.registerHelper("inc", function (value, options) {
 	return parseInt(value) + 1;
 });
 
-// Helper function to set variable 
+// Helper function to set variable
 hbs.registerHelper("setVar", function (varName, varValue, options) {
 	options.data.root[varName] = varValue;
 });
