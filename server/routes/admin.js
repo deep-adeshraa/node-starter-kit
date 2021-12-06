@@ -12,7 +12,7 @@ router.post('/', adminController.hasAuthorization,
 router.put('/:id', adminController.hasAuthorization,
     adminController.updateSoftwarae);
 
-router.delete('/:id', adminController.hasAuthorization,
+router.get('/delete', adminController.hasAuthorization,
     adminController.deleteSoftware);
 
 module.exports = router;

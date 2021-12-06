@@ -31,27 +31,26 @@
             <h3>Searched Softwares for : {{searchQuery}}</h3>
         {{/unless}}
 
-            <table class="table">
-                <thead>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Tag</th>
+                    <th scope="col">Rating</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each softwares}}
                     <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Tag</th>
-                        <th scope="col">Rating</th>
+                        <th scope="row">{{inc @index}}</th>
+                        <td><a href="/softwares/{{id}}" target="_blank">{{name}}</a></td>
+                        <td>{{tag}}</td>
+                        <td>{{rating}}</td>
                     </tr>
-                </thead>
-                <tbody>
-                    {{#each softwares}}
-                        <tr>
-                            <th scope="row">{{inc @index}}</th>
-                            <td><a href="/softwares/{{id}}" target="_blank">{{name}}</a></td>
-                            <td>{{tag}}</td>
-                            <td>{{rating}}</td>
-                        </tr>
-                    {{/each}}
-                </tbody>
-            </table>
-
+                {{/each}}
+            </tbody>
+        </table>
     </div>
 
     {{> footer}}

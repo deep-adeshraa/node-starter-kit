@@ -98,6 +98,10 @@ hbs.registerHelper("inc", function (value, options) {
 	return parseInt(value) + 1;
 });
 
+// Helper function to set variable 
+hbs.registerHelper("setVar", function (varName, varValue, options) {
+	options.data.root[varName] = varValue;
+});
 
 // Set the port
 app.set('port', process.env.PORT || 3000);

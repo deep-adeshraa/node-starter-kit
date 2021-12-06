@@ -16,12 +16,30 @@ exports.listSoftwares = function (req, res) {
 };
 
 exports.createSoftware = function (req, res) {
+    var newSoftware = new Software();
+
+    if (!(req.body.name && req.body.tag && req.body.details)) {
+        return res.redirect('/admin');
+    }
+
+    newSoftware.name = req.body.name;
+    newSoftware.tag = req.body.tag;
+    newSoftware.details = req.body.details;
+
+    newSoftware.save(function (error) {
+        return res.redirect('/admin');
+    });
 };
 
 exports.deleteSoftware = function (req, res) {
+    var id = req.query.deleteSoftwareId;
+
+    Software.findOne({ _id: id }).remove(function (error) {
+        return res.redirect('/admin');
+    });
 };
 
-exports.updateSoftwarae = function(req, res) {
+exports.updateSoftwarae = function (req, res) {
 };
 
 exports.hasAuthorization = function (req, res, next) {
