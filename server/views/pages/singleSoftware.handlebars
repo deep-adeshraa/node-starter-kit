@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+        {{title}}
+    </title>
+    {{> stylesheet }}
+</head>
+
+<body>
+    {{> header }}
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                {{#unless software}}
+                    <h4 class="text-muted">Opps! Item not found</h4>
+                {{/unless}}
+            </div>
+        </div>
+
+        {{#if software}}
+            <div class="card center-block" style="width: 18rem;">
+                <img class="center-block" src={{gravatar}} alt="Card image cap">
+                <div class="card-body" style="margin-top: 10px;margin-left: 10px;margin-bottom: 10px;">
+                    <h5 class="card-title">{{software.name}}</h5>
+                    <p class="card-text">{{software.details}}</p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Tag: {{software.tag}}</li>
+                    <li class="list-group-item">Overall Rating: {{software.rating}}</li>
+                    <li class="list-group-item">Currently trending in {{software.tag}}</li>
+                </ul>
+            </div>
+        {{/if}}
+    </div>
+
+    {{> footer}}
+    {{> javascript }}
+</body>
+
+</html>

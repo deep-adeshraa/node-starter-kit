@@ -41,7 +41,7 @@
                 </tr>
             </thead>
             <tbody>
-                {{#each softwares}}
+                {{#each softwares as | soft | }}
                     <tr>
                         <th scope="row">{{inc @index}}</th>
                         <td><a href="/softwares/{{id}}" target="_blank">{{name}}</a></td>

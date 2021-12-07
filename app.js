@@ -8,18 +8,42 @@ var flash = require('connect-flash');
 var mongoose = require('mongoose');
 var session = require('express-session');
 var MongoStore = require('connect-mongo')
+const Handlebars = require('handlebars');
 
 // We are using handlebase view engine
-var hbs = require('hbs');
+var exphbs = require('express-handlebars');
+const { allowInsecurePrototypeAccess } = require('@handlebars/allow-prototype-access');
+
+var hbs = exphbs.create({
+	layoutsDir: path.join(__dirname, 'server/views/pages'),
+	partialsDir: [
+		//  path to your partials
+		path.join(__dirname, 'server/views/partials'),
+	],
+	handlebars: allowInsecurePrototypeAccess(Handlebars),
+	helpers: {
+		inc: function (value, options) {
+			return parseInt(value) + 1;
+		},
+		setVar: function (varName, varValue, options) {
+			options.data.root[varName] = varValue;
+		},
+		ifCond: function (v1, v2, options) {
+			if (v1 === v2) {
+				return options.fn(this);
+			}
+			return options.inverse(this);
+		}
+	}
+})
 
 var app = express();
 
 // view engine setup
-app.set('views', path.join(__dirname, 'server/views/pages'));
-app.set('view engine', 'hbs');
-
-// Register partial folder
-hbs.registerPartials(path.join(__dirname, 'server/views/partials'))
+app.engine('handlebars', hbs.engine);
+app.set('view engine', 'handlebars');
+app.set('views', 'server/views/pages');
+app.locals.layout = false;
 
 var dbConfig = require('./server/config/config.js');
 mongoose.connect(dbConfig.url);
@@ -92,16 +116,6 @@ app.use(function (err, req, res, next) {
 	// render the error page
 	res.status(err.status || 500);
 	res.render('error');
-});
-
-// Helper funciton to do mathmatics ops
-hbs.registerHelper("inc", function (value, options) {
-	return parseInt(value) + 1;
-});
-
-// Helper function to set variable
-hbs.registerHelper("setVar", function (varName, varValue, options) {
-	options.data.root[varName] = varValue;
 });
 
 // Set the port
