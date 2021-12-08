@@ -25,7 +25,9 @@ exports.create = function (req, res) {
         }
 
         Software.findOne({ _id: softwareId }).exec(function (err, software) {
+            var totalComments = software.comments.length;
             software.comments.push(comment);
+            software.rating = ((totalComments * software.rating) + data.rating) / totalComments + 1;
             software.save();
             res.redirect('/softwares/' + req.body.softwareId);
         });

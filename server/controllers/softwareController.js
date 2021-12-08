@@ -1,8 +1,6 @@
 var Software = require('../models/software');
 var mongoose = require('mongoose')
 var gravatar = require('gravatar');
-const Comment = require('../models/comments');
-const comments = require('../models/comments');
 
 // List top rated softwares
 exports.listTopItems = function (req, res) {

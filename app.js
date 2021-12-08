@@ -28,12 +28,11 @@ var hbs = exphbs.create({
 		setVar: function (varName, varValue, options) {
 			options.data.root[varName] = varValue;
 		},
-		ifCond: function (v1, v2, options) {
-			if (v1 === v2) {
-				return options.fn(this);
-			}
-			return options.inverse(this);
+		roundDecimal: function (value, options) {
+			var with2Decimals = value.toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
+			return with2Decimals;
 		}
+
 	}
 });
 

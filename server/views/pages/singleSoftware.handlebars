@@ -37,7 +37,7 @@
                 </div>
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item">Tag: {{software.tag}}</li>
-                    <li class="list-group-item">Overall Rating: {{software.rating}}</li>
+                    <li class="list-group-item">Overall Rating: {{roundDecimal software.rating}}</li>
                     <li class="list-group-item">Developer: {{software.developerName}}</li>
                     <li class="list-group-item">Subscription Price: {{software.subscriptionPrice}}</li>
                     <li class="list-group-item">Currently trending in {{software.tag}}</li>
@@ -67,6 +67,10 @@
                                     <input type="hidden" name="softwareId" value="{{software.id}}">
                                 </fieldset>
 
+                                <fieldset class="form-group">
+                                    <label for="inputContent">Rating</label>
+                                    <input class="form-control" type="number" placeholder="Rate in scale of 1-5" min="0" max="5" name="rating">
+                                </fieldset>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -79,15 +83,18 @@
             </div>
             {{!-- <Modal End> --}}
 
-            <div class="list-group">
+            <div class="list-group" style="margin-bottom: 15px;">
+                <h4>User reviews</h4>
                 {{#each software.comments}}
                     <a href="#" class="list-group-item">
                         <div class="comments">
                             <p class="list-group-item-text">
                                 {{content}}
                             </p>
-                            <small class="text-muted">By:
-                                {{user.local.name }}
+                            <small class="text-muted">Review by: {{user.local.name }} <br>
+                            <strong class="text-muted">Rating: {{roundDecimal rating}}
+                            </strong>
+
                             </small>
                         </div>
                     </a>
