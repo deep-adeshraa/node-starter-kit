@@ -17,20 +17,8 @@
             </div>
         </div>
         <hr />
-        <form action="/softwares/search" method="get">
-            <div class="row text-center">
-                <input type="text" name="searchQuery" placeholder="Search by tags" class="form-control center-block" style="width: 60%;" />
-                <button class="btn btn-primary search-button">Search</button>
-            </div>
-        </form>
 
-        {{#if topSoftwares}}
-            <h3>Top Softwares</h3>
-        {{/if}}
-        {{#unless topSoftwares}}
-            <h3>Searched Softwares for : {{searchQuery}}</h3>
-        {{/unless}}
-
+        <form action="/softwares/compare" method="post"></form>
         <table class="table">
             <thead>
                 <tr>
@@ -38,23 +26,58 @@
                     <th scope="col">Name</th>
                     <th scope="col">Tag</th>
                     <th scope="col">Rating</th>
+                    <th></th>
                 </tr>
             </thead>
+
             <tbody>
                 {{#each softwares as | soft | }}
-                    <tr>
-                        <th scope="row">{{inc @index}}</th>
-                        <td><a href="/softwares/{{id}}" target="_blank">{{name}}</a></td>
-                        <td>{{tag}}</td>
-                        <td>{{rating}}</td>
-                    </tr>
+                <tr>
+                    <th scope="row">{{inc @index}}</th>
+                    <td><a href="/softwares/{{id}}" target="_blank">{{name}}</a></td>
+                    <td>{{tag}}</td>
+                    <td>{{rating}}</td>
+                    <td><input type="checkbox" name="softwareId" value="{{id}}" onchange="triggerComparebutton()"></td>
+                </tr>
                 {{/each}}
             </tbody>
         </table>
+
+        <div class="row text-center">
+            <button class="btn search-button" style="pointer-events:none" id="compare-button"
+                onclick="compareSoftware()">Compare</button>
+            <p style="color: red; margin-top: 5px;" id="note">Note: select any 2 softwares to compare</p>
+        </div>
+        </form>
     </div>
 
     {{> footer}}
     {{> javascript }}
 </body>
+
+<script>
+    function triggerComparebutton() {
+        var $boxes = $('input[name=softwareId]:checked');
+        var count = $boxes.length;
+        var button = document.getElementById('compare-button')
+
+        if (count == 2) {
+            button.classList.add('btn-primary');
+            button.style.pointerEvents = 'all';
+        } else {
+            button.classList.remove('btn-primary');
+            button.style.pointerEvents = 'none';
+        }
+    }
+
+    function compareSoftware() {
+        var $boxes = $('input[name=softwareId]:checked');
+        var boxOne = $boxes[0];
+        var boxTwo = $boxes[1];
+        var url = "/softwares/compare?softwareOne=" + boxOne.value +
+                  "&softwareTwo=" + boxTwo.value;
+        window.open(url, '_blank');
+    }
+</script>
 
 </html>

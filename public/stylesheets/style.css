@@ -67,3 +67,10 @@ nav {
 .search-button {
   margin-top: 10px;
 }
+
+.card {
+  width: 280px;
+}
+.card-text {
+  height: 60px;
+}
