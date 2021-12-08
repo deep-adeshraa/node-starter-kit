@@ -25,6 +25,8 @@ exports.createSoftware = function (req, res) {
     newSoftware.name = req.body.name;
     newSoftware.tag = req.body.tag;
     newSoftware.details = req.body.details;
+    newSoftware.developerName = req.body.developerName;
+    newSoftware.subscriptionPrice = req.body.subscriptionPrice;
 
     newSoftware.save(function (error) {
         return res.redirect('/admin');

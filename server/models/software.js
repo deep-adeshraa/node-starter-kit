@@ -9,7 +9,9 @@ var softwareSchema = mongoose.Schema({
     comments: [{
         type: Schema.ObjectId,
         ref: 'Comment'
-    }]
+    }],
+    developerName: String,
+    subscriptionPrice: Number
 });
 
 // create the model for software and expose it to our app
