@@ -7,7 +7,13 @@ USER = 1
 var userSchema = mongoose.Schema({
     // Using local for Local Strategy Passport
     local: {
-        name: String,
+        firstName: String,
+        lastName: String,
+        username: String,
+        city: String,
+        country: String,
+        state: String,
+        phone: String,
         email: String,
         password: String,
     },
