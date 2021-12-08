@@ -50,7 +50,7 @@
                     <th scope="row">{{inc @index}}</th>
                     <td><a href="/softwares/{{id}}" target="_blank">{{name}}</a></td>
                     <td>{{tag}}</td>
-                    <td>{{rating}}</td>
+                    <td>{{roundDecimal rating}}</td>
                     <td><input type="checkbox" name="softwareId" value="{{id}}" onchange="triggerComparebutton()"></td>
                 </tr>
                 {{/each}}
