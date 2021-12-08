@@ -1,37 +1,34 @@
-var gravatar = require('gravatar');
-var Comments = require('../models/comments');
-
-// List Comments
-exports.list = function (req, res) {
-    Comments.find().sort('-created')
-        .populate('user', 'local.email').exec(function (error, comments) {
-            if (error) {
-                return res.send(400, {
-                    message: error
-                });
-            }
-
-            res.render('comments', {
-                title: 'Comments Page',
-                comments: comments,
-                gravatar: gravatar.url(comments.email,
-                    { s: '80', r: 'x', d: 'retro' }, true)
-            });
-        });
-};
+var Comment = require('../models/comments');
+var Software = require('../models/software');
+var mongoose = require('mongoose');
 
 // Create Comments
 exports.create = function (req, res) {
-    var comments = new Comments(req.body);
-    comments.user = req.user;
-    comments.save(function (error) {
+    var comment = new Comment(req.body);
+    comment.user = req.user;
+    var softwareId = req.body.softwareId;
+
+    var isValidId = mongoose.Types.ObjectId.isValid(softwareId);
+
+    if (!isValidId) {
+        res.render('singleSoftware', {
+            software: [],
+        });
+        return;
+    }
+
+    comment.save(function (error, data) {
         if (error) {
             return res.send(400, {
                 message: error
             });
         }
 
-        res.redirect('/comments');
+        Software.findOne({ _id: softwareId }).exec(function (err, software) {
+            software.comments.push(comment);
+            software.save();
+            res.redirect('/softwares/' + req.body.softwareId);
+        });
     });
 };
 

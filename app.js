@@ -35,7 +35,7 @@ var hbs = exphbs.create({
 			return options.inverse(this);
 		}
 	}
-})
+});
 
 var app = express();
 

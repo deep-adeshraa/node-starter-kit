@@ -1,10 +1,15 @@
 var mongoose = require('mongoose');
+var Schema = mongoose.Schema
 
 var softwareSchema = mongoose.Schema({
     name: String,
     tag: String,
     rating: { type: Number, min: 0, max: 5, default: 0 },
-    details: String
+    details: String,
+    comments: [{
+        type: Schema.ObjectId,
+        ref: 'Comment'
+    }]
 });
 
 // create the model for software and expose it to our app

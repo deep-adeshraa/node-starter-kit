@@ -1,6 +1,8 @@
 var Software = require('../models/software');
 var mongoose = require('mongoose')
 var gravatar = require('gravatar');
+const Comment = require('../models/comments');
+const comments = require('../models/comments');
 
 // List top rated softwares
 exports.listTopItems = function (req, res) {
@@ -50,8 +52,16 @@ exports.getSoftwareById = function (req, res) {
         return;
     }
 
-    Software.findOne({ _id: objId }).exec(function (error, data) {
+    Software.findOne({ _id: objId }).populate({
+        path: 'comments',
+        populate: {
+            path: 'user',
+            model: 'User'
+        },
+        options: { sort: { 'created': -1 } }
+    }).exec(function (error, data) {
         if (error) {
+            console.log(error)
             return res.send(400, {
                 message: error
             });
@@ -65,7 +75,7 @@ exports.getSoftwareById = function (req, res) {
             title: 'Software Page',
             software: data,
             gravatar: gravatar.url(data.name,
-                { s: '80', r: 'x', d: 'retro' }, true)
+                { s: '80', r: 'x', d: 'retro' }, true),
         });
     });
 }

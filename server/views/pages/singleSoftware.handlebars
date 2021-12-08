@@ -17,6 +17,15 @@
                     <h4 class="text-muted">Opps! Item not found</h4>
                 {{/unless}}
             </div>
+
+            {{#if software}}
+            <div class="col-lg-6">
+                <button type="button" class="btn btn-secondary pull-right" data-toggle="modal"
+                    data-target="#createComment">
+                    Create Comment
+                </button>
+            </div>
+            {{/if}}
         </div>
 
         {{#if software}}
@@ -32,6 +41,57 @@
                     <li class="list-group-item">Currently trending in {{software.tag}}</li>
                 </ul>
             </div>
+
+            {{!-- <Modal Start> --}}
+            <div class="modal fade" id="createComment" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <form action="/comments" method="post">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                <h4 class="modal-title" id="myModalLabel">
+                                    Create Comment</h4>
+                            </div>
+
+                            <div class="modal-body">
+                                <fieldset class="form-group">
+                                    <label for="inputContent">Comment</label>
+                                    <textarea id="inputContent" name="content" class="form-control"
+                                        placeholder="Comment Description" required="">
+                                    </textarea>
+                                    <input type="hidden" name="softwareId" value="{{software.id}}">
+                                </fieldset>
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">
+                                    Add Comment</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            {{!-- <Modal End> --}}
+
+            <div class="list-group">
+                {{#each software.comments}}
+                    <a href="#" class="list-group-item">
+                        <div class="comments">
+                            <p class="list-group-item-text">
+                                {{content}}
+                            </p>
+                            <small class="text-muted">By:
+                                {{user.local.name }}
+                            </small>
+                        </div>
+                    </a>
+                {{/each}}
+            </div>
+
         {{/if}}
     </div>
 
