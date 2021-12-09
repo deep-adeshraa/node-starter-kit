@@ -18,7 +18,8 @@ exports.listSoftwares = function (req, res) {
 exports.createSoftware = function (req, res) {
     var newSoftware = new Software();
 
-    if (!(req.body.name && req.body.tag && req.body.details)) {
+    if (!(req.body.name && req.body.tag && req.body.details &&
+        req.body.subscriptionPrice && req.body.developerName)) {
         return res.redirect('/vendor');
     }
 
@@ -44,13 +45,18 @@ exports.deleteSoftware = function (req, res) {
 exports.updateSoftwarae = function (req, res) {
     var id = req.body.updateSoftwareId;
 
+    if (!(req.body.name && req.body.tag && req.body.details &&
+        req.body.subscriptionPrice && req.body.developerName)) {
+        return res.redirect('/vendor');
+    }
+
     Software.findOneAndUpdate({ _id: id }, {
         name: req.body.name,
         developerName: req.body.developerName,
         subscriptionPrice: req.body.subscriptionPrice,
         tag: req.body.tag,
         details: req.body.details
-    }, function(errr, data) {
+    }, function (errr, data) {
         return res.redirect('/vendor');
     });
 };
