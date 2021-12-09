@@ -4,6 +4,13 @@ var mongoose = require('mongoose');
 
 // Create Comments
 exports.create = function (req, res) {
+
+    if (!req.body.content || !req.body.rating) {
+        res.send(400, {
+            message:  "Please enter all required fields"
+        })
+    }
+
     var comment = new Comment(req.body);
     comment.user = req.user;
     var softwareId = req.body.softwareId;
@@ -27,8 +34,8 @@ exports.create = function (req, res) {
         Software.findOne({ _id: softwareId }).exec(function (err, software) {
             var totalComments = software.comments.length;
             software.comments.push(comment);
-            console.log(totalComments, software.rating, data.rating)
-            software.rating = ((totalComments * software.rating) + data.rating) / (totalComments + 1);
+
+            software.rating = Math.max(((totalComments * software.rating) + data.rating) / (totalComments + 1), 5);
             software.save();
             res.redirect('/softwares/' + req.body.softwareId);
         });

@@ -9,13 +9,15 @@ var commentSchema = mongoose.Schema({
     content: {
         type: String,
         default: '',
-        trim: true
+        trim: true,
+        required: true
     },
     rating: {
         type: Number,
         min: 0,
         max: 5,
-        default: 0
+        default: 0,
+        required: true
     },
     user: {
         type: Schema.ObjectId,
