@@ -27,11 +27,20 @@
         </form>
 
         {{#if topSoftwares}}
-            <h3>Top Softwares</h3>
+        <h3>Top Softwares</h3>
         {{/if}}
         {{#unless topSoftwares}}
-            <h3>Searched Softwares for : {{searchQuery}}</h3>
+        <h3>Searched Softwares for : {{searchQuery}}</h3>
         {{/unless}}
+
+        <div class="pull-right" style="display: flex;width: 15%;">
+            <strong style="width: 100%; margin-top: 6px;" class="text-center">Sort by</strong>
+            <select class="form-control" style="margin-bottom: 10px;" onchange="insertParam(this.value)">
+                <option value="name">Name</option>
+                <option value="rating" selected>Rating</option>
+                <option value="tag">Tag</option>
+            </select>
+        </div>
 
         <table class="table">
             <thead>
@@ -91,6 +100,39 @@
             "&softwareTwo=" + boxTwo.value;
         window.open(url, '_blank');
     }
+
+    function sortChanged(value) {
+
+    }
+
+    function insertParam(value) {
+        key = encodeURIComponent('sortByField');
+        value = encodeURIComponent(value);
+
+        // kvp looks like ['key1=value1', 'key2=value2', ...]
+        var kvp = document.location.search.substr(1).split('&');
+        let i = 0;
+
+        for (; i < kvp.length; i++) {
+            if (kvp[i].startsWith(key + '=')) {
+                let pair = kvp[i].split('=');
+                pair[1] = value;
+                kvp[i] = pair.join('=');
+                break;
+            }
+        }
+
+        if (i >= kvp.length) {
+            kvp[kvp.length] = [key, value].join('=');
+        }
+
+        // can return this or...
+        let params = kvp.join('&');
+
+        // reload page with new params
+        document.location.search = params;
+    }
+
 </script>
 
 </html>

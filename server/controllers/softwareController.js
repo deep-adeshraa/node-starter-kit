@@ -5,7 +5,18 @@ var xss = require('xss')
 
 // List top rated softwares
 exports.listTopItems = function (req, res) {
-    Software.find().sort('-rating').limit(10).exec(function (error, softwares) {
+    var sortQuery = xss(req.query.sortByField);
+    var sortByOrder = -1;
+    var sortByfield = 'rating';
+    var sortDict = {};
+
+    if (['name', 'tag', 'rating'].indexOf(sortQuery) != -1) {
+        sortByfield = sortQuery;
+        sortByOrder = sortQuery != 'rating' ? 1 : -1;
+    }
+    sortDict[sortByfield] = sortByOrder;
+
+    Software.find().sort(sortDict).exec(function (error, softwares) {
         if (error) {
             return res.send(400, {
                 message: error
@@ -22,10 +33,21 @@ exports.listTopItems = function (req, res) {
 
 // Search software
 exports.searchSoftware = function (req, res) {
+    var sortQuery = xss(req.query.sortByField);
+    var sortByOrder = -1;
+    var sortByfield = 'rating';
+    var sortDict = {};
+
+    if (['name', 'tag', 'rating'].indexOf(sortQuery) != -1) {
+        sortByfield = sortQuery;
+        sortByOrder = sortQuery != 'rating' ? 1 : -1;
+    }
+    sortDict[sortByfield] = sortByOrder;
+
     var query = xss(req.query.searchQuery)
 
     Software.find({ tag: { $regex: "^" + query } })
-        .sort('-rating').exec(function (error, softwares) {
+        .sort(sortDict).exec(function (error, softwares) {
             if (error) {
                 return res.send(400, {
                     message: error
