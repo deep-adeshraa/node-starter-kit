@@ -32,7 +32,6 @@ var hbs = exphbs.create({
 			var with2Decimals = value.toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
 			return with2Decimals;
 		}
-
 	}
 });
 
@@ -77,7 +76,7 @@ app.use(function (req, res, next) {
 
 	if (app.locals.isLoggedIn) {
 		app.locals.userName = req.user.local.username;
-		app.locals.isAdmin = req.user.role == 0;
+		app.locals.isVendor = req.user.role == 0;
 	}
 	next();
 });
@@ -93,13 +92,15 @@ app.use(express.static(path.join(__dirname, 'public')));
 var indexRouter = require('./server/routes/index');
 var commentsRouter = require('./server/routes/comments');
 var softwareRouter = require('./server/routes/softwares');
-var adminRouter = require('./server/routes/admin');
+var vendorRouter = require('./server/routes/vendor');
+var contactUsRouter = require('./server/routes/contactUs');
 
 // Our Paths
 app.use('/', indexRouter);
 app.use('/comments', commentsRouter);
 app.use('/softwares', softwareRouter);
-app.use('/admin', adminRouter);
+app.use('/vendor', vendorRouter);
+app.use('/contactUs', contactUsRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

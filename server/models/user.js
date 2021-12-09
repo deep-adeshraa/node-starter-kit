@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 var bcrypt = require('bcrypt-nodejs');
 
-ADMIN = 0
+VENDOR = 0
 USER = 1
 
 var userSchema = mongoose.Schema({
@@ -17,7 +17,7 @@ var userSchema = mongoose.Schema({
         email: String,
         password: String,
     },
-    role: {type: Number, enum:{ADMIN, USER}, default: USER}
+    role: {type: Number, enum:{VENDOR, USER}, default: USER}
 });
 
 userSchema.methods.generateHash = function(password) {

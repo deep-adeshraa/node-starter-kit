@@ -8,8 +8,8 @@ exports.listSoftwares = function (req, res) {
             });
         }
 
-        res.render('admin', {
-            title: 'Admin Page',
+        res.render('vendor', {
+            title: 'Vendor Page',
             softwares: softwares,
         });
     });
@@ -19,7 +19,7 @@ exports.createSoftware = function (req, res) {
     var newSoftware = new Software();
 
     if (!(req.body.name && req.body.tag && req.body.details)) {
-        return res.redirect('/admin');
+        return res.redirect('/vendor');
     }
 
     newSoftware.name = req.body.name;
@@ -29,7 +29,7 @@ exports.createSoftware = function (req, res) {
     newSoftware.subscriptionPrice = req.body.subscriptionPrice;
 
     newSoftware.save(function (error) {
-        return res.redirect('/admin');
+        return res.redirect('/vendor');
     });
 };
 
@@ -37,7 +37,7 @@ exports.deleteSoftware = function (req, res) {
     var id = req.query.deleteSoftwareId;
 
     Software.findOne({ _id: id }).remove(function (error) {
-        return res.redirect('/admin');
+        return res.redirect('/vendor');
     });
 };
 

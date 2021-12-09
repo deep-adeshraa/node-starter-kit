@@ -68,7 +68,7 @@ module.exports = function (passport) {
                     } else {
                         var newUser = new User();
                         newUser.local.firstName = req.body.firstName;
-                        newUser.local.lastname = req.body.lastname;
+                        newUser.local.lastName = req.body.lastName;
                         newUser.local.username = req.body.username;
                         newUser.local.city = req.body.city;
                         newUser.local.country = req.body.country;

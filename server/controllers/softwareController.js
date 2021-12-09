@@ -115,7 +115,7 @@ exports.compareSoftware = function (req, res) {
 }
 
 exports.hasAuthorization = function (req, res, next) {
-    if (req.isAuthenticated())
+    if (req.isAuthenticated() && req.user.role == 1)
         return next();
     res.redirect('/login');
 };

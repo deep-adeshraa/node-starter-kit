@@ -33,7 +33,7 @@ router.post('/login', passport.authenticate('local-login', {
 		if (user.role == 1) {
 			res.redirect('/profile');
 		} else {
-			res.redirect('/admin');
+			res.redirect('/vendor');
 		}
 	});
 });
@@ -75,10 +75,6 @@ function isLoggedIn(req, res, next) {
 	if (req.isAuthenticated())
 		return next();
 	res.redirect('/login');
-}
-
-function isAdmin(req) {
-	return req.isAuthenticated() && req.user.role == 0;
 }
 
 module.exports = router;
