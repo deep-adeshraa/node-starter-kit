@@ -8,8 +8,8 @@
             </button>
 
             <div class="collapse navbar-toggleable-xs" id="exCollapsingNavbar2">
-                <a class="navbar-brand" href="/">My App</a>
-                <ul class="nav navbar-nav navbar-right">
+                <a class="navbar-brand" href="/">Home</a>
+                <ul class="nav navbar-nav pull-right">
                     {{#unless isLoggedIn}}
                         <li class="nav-item">
                             <a class="nav-link" href="/login">
@@ -25,10 +25,6 @@
                     {{/unless}}
 
                     {{#if isLoggedIn}}
-                        <li class="nav-item">
-                            <a class="nav-link" href="/profile">Profile</a>
-                        </li>
-
                         {{#unless isVendor}}
                             <li class="nav-item">
                                 <a class="nav-link" href="/softwares">Softwares</a>
@@ -40,6 +36,10 @@
                                 <a class="nav-link" href="/vendor">Vendor</a>
                             </li>
                         {{/if}}
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="/profile">Profile</a>
+                        </li>
 
                         <li class="nav-item">
                             <a class="nav-link" href="/logout">Logout</a>

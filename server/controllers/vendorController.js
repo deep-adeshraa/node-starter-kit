@@ -1,4 +1,5 @@
 var Software = require('../models/software');
+var xss = require('xss')
 
 exports.listSoftwares = function (req, res) {
     Software.find().exec(function (error, softwares) {
@@ -35,7 +36,7 @@ exports.createSoftware = function (req, res) {
 };
 
 exports.deleteSoftware = function (req, res) {
-    var id = req.query.deleteSoftwareId;
+    var id = xss(req.query.deleteSoftwareId);
 
     Software.findOne({ _id: id }).remove(function (error) {
         return res.redirect('/vendor');

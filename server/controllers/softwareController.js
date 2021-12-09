@@ -1,6 +1,7 @@
 var Software = require('../models/software');
 var mongoose = require('mongoose')
 var gravatar = require('gravatar');
+var xss = require('xss')
 
 // List top rated softwares
 exports.listTopItems = function (req, res) {
@@ -21,9 +22,9 @@ exports.listTopItems = function (req, res) {
 
 // Search software
 exports.searchSoftware = function (req, res) {
-    var query = req.query
+    var query = xss(req.query.searchQuery)
 
-    Software.find({ tag: { $regex: "^" + query.searchQuery } })
+    Software.find({ tag: { $regex: "^" + query } })
         .sort('-rating').exec(function (error, softwares) {
             if (error) {
                 return res.send(400, {
@@ -34,7 +35,7 @@ exports.searchSoftware = function (req, res) {
             res.render('softwares', {
                 title: 'Software Page',
                 softwares: softwares,
-                searchQuery: query.searchQuery
+                searchQuery: query
             });
         });
 };
@@ -79,8 +80,8 @@ exports.getSoftwareById = function (req, res) {
 }
 
 exports.compareSoftware = function (req, res) {
-    var softwareOne = req.query.softwareOne;
-    var softwareTwo = req.query.softwareTwo;
+    var softwareOne = xss(req.query.softwareOne);
+    var softwareTwo = xss(req.query.softwareTwo);
 
     Software.findOne({ _id: softwareOne }).exec(function (error, software) {
         if (error) {
