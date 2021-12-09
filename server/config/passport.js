@@ -67,6 +67,18 @@ module.exports = function (passport) {
                         return done(null, false, req.flash('signupMessage', 'Wohh! the email is already taken.'));
                     } else {
                         var newUser = new User();
+
+                        if (!(req.body.firstName.trim() && req.body.lastName.trim() &&
+                             req.body.username.trim() && req.body.city.trim() &&
+                             req.body.country.trim() && req.body.state.trim() &&
+                             req.body.phone.trim() && req.body.role.trim())) {
+                            return done(null, false, req.flash('signupMessage', 'Wohh! All fields are required.'));
+                        }
+
+                        if (password.length < 6) {
+                            return done(null, false, req.flash('signupMessage', 'Wohh! Password length should be atleast 6.'));
+                        }
+
                         newUser.local.firstName = req.body.firstName;
                         newUser.local.lastName = req.body.lastName;
                         newUser.local.username = req.body.username;
