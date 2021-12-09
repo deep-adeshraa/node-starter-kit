@@ -81,6 +81,63 @@
         </div>
         {{!-- End Create Software Modal --}}
 
+        {{!-- Edit software modal --}}
+        <div class="modal fade" id="editSoftware" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <form action="/vendor/edit" method="post">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <h4 class="modal-title" id="myModalLabel">
+                                Edit Software</h4>
+                        </div>
+
+                        <div class="modal-body">
+                            <input type="hidden" id="updateSoftwareId" name="updateSoftwareId">
+                            <fieldset class="form-group">
+                                <label for="edit-software-name">Name</label>
+                                <input type="text" id="edit-software-name" name="name" class="form-control"
+                                    placeholder="Software name" required="">
+                            </fieldset>
+
+                            <fieldset class="form-group">
+                                <label for="edit-software-tag">Tag</label>
+                                <input type="text" id="edit-software-tag" name="tag" class="form-control"
+                                    placeholder="Software tag" required="true">
+                            </fieldset>
+
+                            <fieldset class="form-group">
+                                <label for="edit-software-detail">Details</label>
+                                <textarea id="edit-software-detail" name="details" class="form-control"
+                                    placeholder="Software Description" required="true">
+                                </textarea>
+                            </fieldset>
+
+                            <fieldset class="form-group">
+                                <label for="edit-software-dev-name">Developer Name</label>
+                                <input id="edit-software-dev-name" name="developerName" class="form-control"
+                                    placeholder="Software Developer" required="true">
+                            </fieldset>
+
+                            <fieldset class="form-group">
+                                <label for="edit-software-price">Subscription price</label>
+                                <input id="edit-software-price" type="number" name="subscriptionPrice" class="form-control"
+                                    required="true">
+                            </fieldset>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
         <table class="table" style="margin-top: 20px;">
             <thead>
                 <tr>
@@ -99,7 +156,12 @@
                     <td><strong><i>{{name}}</i></strong></td>
                     <td>{{tag}}</td>
                     <td>{{roundDecimal rating}}</td>
-                    <td><button class="btn btn-primary">Edit</button></td>
+                    <td>
+                        <button class="btn btn-primary" data-target="#editSoftware" data-toggle="modal"
+                            onclick="setTempVar('{{this.id}}', '{{this.name}}', '{{this.tag}}', '{{this.details}}', '{{this.developerName}}', '{{this.subscriptionPrice}}')">
+                            Edit
+                        </button>
+                    </td>
                     <td>
                         <form method="get" action="/vendor/delete">
                             <input type="hidden" name="deleteSoftwareId" value={{id}} />
@@ -115,5 +177,16 @@
     {{> footer}}
     {{> javascript }}
 </body>
+
+<script>
+    function setTempVar(id, name, tag, details, developerName, subscriptionPrice) {
+        document.getElementById('updateSoftwareId').value = id;
+        document.getElementById('edit-software-name').value = name;
+        document.getElementById('edit-software-tag').value = tag;
+        document.getElementById('edit-software-detail').value = details;
+        document.getElementById('edit-software-dev-name').value = developerName;
+        document.getElementById('edit-software-price').value = subscriptionPrice;
+    }
+</script>
 
 </html>

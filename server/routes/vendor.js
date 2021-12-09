@@ -9,7 +9,7 @@ router.get('/', vendorController.hasAuthorization,
 router.post('/', vendorController.hasAuthorization,
     vendorController.createSoftware);
 
-router.put('/:id', vendorController.hasAuthorization,
+router.post('/edit', vendorController.hasAuthorization,
     vendorController.updateSoftwarae);
 
 router.get('/delete', vendorController.hasAuthorization,

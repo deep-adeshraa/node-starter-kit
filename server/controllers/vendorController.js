@@ -42,6 +42,17 @@ exports.deleteSoftware = function (req, res) {
 };
 
 exports.updateSoftwarae = function (req, res) {
+    var id = req.body.updateSoftwareId;
+
+    Software.findOneAndUpdate({ _id: id }, {
+        name: req.body.name,
+        developerName: req.body.developerName,
+        subscriptionPrice: req.body.subscriptionPrice,
+        tag: req.body.tag,
+        details: req.body.details
+    }, function(errr, data) {
+        return res.redirect('/vendor');
+    });
 };
 
 exports.hasAuthorization = function (req, res, next) {
