@@ -35,7 +35,7 @@ exports.create = function (req, res) {
             var totalComments = software.comments.length;
             software.comments.push(comment);
 
-            software.rating = Math.max(((totalComments * software.rating) + data.rating) / (totalComments + 1), 5);
+            software.rating = Math.min(((totalComments * software.rating) + data.rating) / (totalComments + 1), 5);
             software.save();
             res.redirect('/softwares/' + req.body.softwareId);
         });

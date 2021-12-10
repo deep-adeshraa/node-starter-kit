@@ -40,39 +40,39 @@
 
                         <div class="modal-body">
                             <fieldset class="form-group">
-                                <label for="inputitle">Name</label>
-                                <input type="text" id="inputitle" name="name" class="form-control"
+                                <label for="new-software-name">Name</label>
+                                <input type="text" id="new-software-name" name="name" class="form-control" oninput="checkNewSoftwareContent()"
                                     placeholder="Software name" required="">
                             </fieldset>
 
                             <fieldset class="form-group">
-                                <label for="inputitle">Tag</label>
-                                <input type="text" id="inputitle" name="tag" class="form-control"
-                                    placeholder="Software tag" required="true">
+                                <label for="new-software-catagory">catagory</label>
+                                <input type="text" id="new-software-catagory" name="catagory" class="form-control" oninput="checkNewSoftwareContent()"
+                                    placeholder="Software catagory" required="true">
                             </fieldset>
 
                             <fieldset class="form-group">
-                                <label for="inputContent">Details</label>
-                                <input id="inputContent" name="details" class="form-control"
+                                <label for="new-software-details">Details</label>
+                                <input id="new-software-details" name="details" class="form-control" oninput="checkNewSoftwareContent()"
                                     placeholder="Software Description" required="true">
                             </fieldset>
 
                             <fieldset class="form-group">
-                                <label for="inputContent">Developer Name</label>
-                                <input id="inputContent" name="developerName" class="form-control"
+                                <label for="new-software-dev-name">Developer Name</label>
+                                <input id="new-software-dev-name" name="developerName" class="form-control" oninput="checkNewSoftwareContent()"
                                     placeholder="Software Developer" required="true">
                             </fieldset>
 
                             <fieldset class="form-group">
-                                <label for="inputContent">Subscription price</label>
-                                <input id="inputContent" type="number" name="subscriptionPrice" class="form-control"
+                                <label for="new-software-price">Subscription price</label>
+                                <input id="new-software-price" type="number" name="subscriptionPrice" class="form-control" oninput="checkNewSoftwareContent()"
                                     required="true">
                             </fieldset>
                         </div>
 
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Save changes</button>
+                            <button type="submit" id="add-new-software" style="pointer-events: none;" class="btn btn-default">Save changes</button>
                         </div>
                     </form>
                 </div>
@@ -98,38 +98,38 @@
                             <input type="hidden" id="updateSoftwareId" name="updateSoftwareId">
                             <fieldset class="form-group">
                                 <label for="edit-software-name">Name</label>
-                                <input type="text" id="edit-software-name" name="name" class="form-control"
+                                <input type="text" id="edit-software-name" name="name" class="form-control" oninput="checkEditSoftwareContent()"
                                     placeholder="Software name" required="">
                             </fieldset>
 
                             <fieldset class="form-group">
-                                <label for="edit-software-tag">Tag</label>
-                                <input type="text" id="edit-software-tag" name="tag" class="form-control"
-                                    placeholder="Software tag" required="true">
+                                <label for="edit-software-catagory">catagory</label>
+                                <input type="text" id="edit-software-catagory" name="catagory" class="form-control" oninput="checkEditSoftwareContent()"
+                                    placeholder="Software catagory" required="true">
                             </fieldset>
 
                             <fieldset class="form-group">
                                 <label for="edit-software-detail">Details</label>
-                                <input id="edit-software-detail" name="details" class="form-control"
+                                <input id="edit-software-detail" name="details" class="form-control" oninput="checkEditSoftwareContent()"
                                     placeholder="Software Description" required="true">
                             </fieldset>
 
                             <fieldset class="form-group">
                                 <label for="edit-software-dev-name">Developer Name</label>
-                                <input id="edit-software-dev-name" name="developerName" class="form-control"
+                                <input id="edit-software-dev-name" name="developerName" class="form-control" oninput="checkEditSoftwareContent()"
                                     placeholder="Software Developer" required="true">
                             </fieldset>
 
                             <fieldset class="form-group">
                                 <label for="edit-software-price">Subscription price</label>
-                                <input id="edit-software-price" type="number" name="subscriptionPrice" class="form-control"
+                                <input id="edit-software-price" type="number" name="subscriptionPrice" class="form-control" oninput="checkEditSoftwareContent()"
                                     required="true">
                             </fieldset>
                         </div>
 
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Save changes</button>
+                            <button type="submit" id="edit-new-software" style="pointer-events: none;" class="btn btn-primary">Save changes</button>
                         </div>
                     </form>
                 </div>
@@ -141,7 +141,7 @@
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Name</th>
-                    <th scope="col">Tag</th>
+                    <th scope="col">catagory</th>
                     <th scope="col">Rating</th>
                     <th>Edit</th>
                     <th>Delete</th>
@@ -152,11 +152,11 @@
                 <tr>
                     <th scope="row">{{inc @index}}</th>
                     <td><strong><i>{{name}}</i></strong></td>
-                    <td>{{tag}}</td>
+                    <td>{{catagory}}</td>
                     <td>{{roundDecimal rating}}</td>
                     <td>
                         <button class="btn btn-primary" data-target="#editSoftware" data-toggle="modal"
-                            onclick="setTempVar('{{this.id}}', '{{this.name}}', '{{this.tag}}', '{{this.details}}', '{{this.developerName}}', '{{this.subscriptionPrice}}')">
+                            onclick="setTempVar('{{this.id}}', '{{this.name}}', '{{this.catagory}}', '{{this.details}}', '{{this.developerName}}', '{{this.subscriptionPrice}}')">
                             Edit
                         </button>
                     </td>
@@ -177,14 +177,51 @@
 </body>
 
 <script>
-    function setTempVar(id, name, tag, details, developerName, subscriptionPrice) {
+    function setTempVar(id, name, catagory, details, developerName, subscriptionPrice) {
         document.getElementById('updateSoftwareId').value = id;
         document.getElementById('edit-software-name').value = name;
-        document.getElementById('edit-software-tag').value = tag;
+        document.getElementById('edit-software-catagory').value = catagory;
         document.getElementById('edit-software-detail').value = details;
         document.getElementById('edit-software-dev-name').value = developerName;
         document.getElementById('edit-software-price').value = subscriptionPrice;
     }
+
+    function checkNewSoftwareContent() {
+        var name = document.getElementById('new-software-name').value;
+        var catagory = document.getElementById('new-software-catagory').value;
+        var details = document.getElementById('new-software-details').value;
+        var developerName = document.getElementById('new-software-dev-name').value;
+        var subscriptionPrice = document.getElementById('new-software-price').value;
+        var btn = document.getElementById('add-new-software');
+
+        if (name.trim() && catagory.trim() && details.trim() &&
+            developerName.trim() && subscriptionPrice.trim()) {
+            btn.style.pointerEvents = 'all';
+            btn.classList.add('btn-primary');
+        } else {
+            btn.style.pointerEvents = 'none';
+            btn.classList.remove('btn-primary');
+        }
+    }
+
+    function checkEditSoftwareContent() {
+        var name = document.getElementById('edit-software-name').value;
+        var catagory = document.getElementById('edit-software-catagory').value;
+        var details = document.getElementById('edit-software-detail').value;
+        var developerName = document.getElementById('edit-software-dev-name').value;
+        var subscriptionPrice = document.getElementById('edit-software-price').value;
+        var btn = document.getElementById('edit-new-software');
+
+        if (name.trim() && catagory.trim() && details.trim() &&
+            developerName.trim() && subscriptionPrice.trim()) {
+            btn.style.pointerEvents = 'all';
+            btn.classList.add('btn-primary');
+        } else {
+            btn.style.pointerEvents = 'none';
+            btn.classList.remove('btn-primary');
+        }
+    }
+
 </script>
 
 </html>

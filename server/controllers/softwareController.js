@@ -10,7 +10,7 @@ exports.listTopItems = function (req, res) {
     var sortByfield = 'rating';
     var sortDict = {};
 
-    if (['name', 'tag', 'rating'].indexOf(sortQuery) != -1) {
+    if (['name', 'catagory', 'rating'].indexOf(sortQuery) != -1) {
         sortByfield = sortQuery;
         sortByOrder = sortQuery != 'rating' ? 1 : -1;
     }
@@ -38,7 +38,7 @@ exports.searchSoftware = function (req, res) {
     var sortByfield = 'rating';
     var sortDict = {};
 
-    if (['name', 'tag', 'rating'].indexOf(sortQuery) != -1) {
+    if (['name', 'catagory', 'rating'].indexOf(sortQuery) != -1) {
         sortByfield = sortQuery;
         sortByOrder = sortQuery != 'rating' ? 1 : -1;
     }
@@ -46,7 +46,7 @@ exports.searchSoftware = function (req, res) {
 
     var query = xss(req.query.searchQuery)
 
-    Software.find({ tag: { $regex: "^" + query } })
+    Software.find({ catagory: { $regex: "^" + query } })
         .sort(sortDict).exec(function (error, softwares) {
             if (error) {
                 return res.send(400, {

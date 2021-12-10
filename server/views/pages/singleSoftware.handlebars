@@ -36,11 +36,11 @@
                     <p class="card-text">{{software.details}}</p>
                 </div>
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item">Tag: {{software.tag}}</li>
+                    <li class="list-group-item">Tag: {{software.catagory}}</li>
                     <li class="list-group-item">Overall Rating: {{roundDecimal software.rating}}</li>
                     <li class="list-group-item">Developer: {{software.developerName}}</li>
                     <li class="list-group-item">Subscription Price: {{software.subscriptionPrice}}</li>
-                    <li class="list-group-item">Currently trending in {{software.tag}}</li>
+                    <li class="list-group-item">Currently trending in {{software.catagory}}</li>
                 </ul>
             </div>
 
@@ -60,20 +60,20 @@
 
                             <div class="modal-body">
                                 <fieldset class="form-group">
-                                    <label for="inputContent">Comment</label>
-                                    <input id="inputContent" name="content" class="form-control"
-                                        placeholder="Comment Description" required="true">
+                                    <label for="comment-content">Comment</label>
+                                    <input id="comment-content" name="content" class="form-control"
+                                        placeholder="Comment Description" required="true" oninput="checkCommentContent()">
                                     <input type="hidden" name="softwareId" value="{{software.id}}">
                                 </fieldset>
 
                                 <fieldset class="form-group">
                                     <label for="inputContent">Rating</label>
-                                    <input class="form-control" type="number" required="true" placeholder="Rate in scale of 1-5" min="0" max="5" name="rating">
+                                    <input class="form-control" type="number" id="comment-rating" oninput="checkCommentContent()" required="true" placeholder="Rate in scale of 1-5" min="0" max="5" name="rating">
                                 </fieldset>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary">
+                                <button style="pointer-events: none;" id="add-comment-btn" type="submit" class="btn btn-default">
                                     Add Comment</button>
                             </div>
                         </form>
@@ -106,5 +106,23 @@
     {{> footer}}
     {{> javascript }}
 </body>
+
+<script>
+    function checkCommentContent() {
+        var btn = document.getElementById('add-comment-btn');
+        var comment = document.getElementById('comment-content');
+        var rating = document.getElementById('comment-rating')
+        console.log([0,1,2,3,4,5].indexOf(rating.value))
+
+        if (comment.value && comment.value.trim() &&
+            ['0','1','2','3','4','5'].indexOf(rating.value) != -1) {
+            btn.style.pointerEvents = 'all';
+            btn.classList.add('btn-primary');
+        } else {
+            btn.style.pointerEvents = 'none';
+            btn.classList.remove('btn-primary');
+        }
+    }
+</script>
 
 </html>

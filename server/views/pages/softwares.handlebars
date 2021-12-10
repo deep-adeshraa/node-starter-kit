@@ -20,7 +20,7 @@
 
         <form action="/softwares/search" method="get">
             <div class="row text-center">
-                <input type="text" name="searchQuery" placeholder="Search by tags" class="form-control center-block"
+                <input type="text" name="searchQuery" placeholder="Search by catagory" class="form-control center-block"
                     style="width: 60%;" />
                 <button class="btn btn-primary search-button">Search</button>
             </div>
@@ -38,7 +38,7 @@
             <select class="form-control" style="margin-bottom: 10px;" onchange="insertParam(this.value)">
                 <option value="name">Name</option>
                 <option value="rating" selected>Rating</option>
-                <option value="tag">Tag</option>
+                <option value="catagory">Catagory</option>
             </select>
         </div>
 
@@ -47,7 +47,7 @@
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Name</th>
-                    <th scope="col">Tag</th>
+                    <th scope="col">Catagory</th>
                     <th scope="col">Rating</th>
                     <th></th>
                 </tr>
@@ -58,7 +58,7 @@
                 <tr>
                     <th scope="row">{{inc @index}}</th>
                     <td><a href="/softwares/{{id}}" target="_blank">{{name}}</a></td>
-                    <td>{{tag}}</td>
+                    <td>{{catagory}}</td>
                     <td>{{roundDecimal rating}}</td>
                     <td><input type="checkbox" name="softwareId" value="{{id}}" onchange="triggerComparebutton()"></td>
                 </tr>
