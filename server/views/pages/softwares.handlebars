@@ -35,9 +35,9 @@
 
         <div class="pull-right" style="display: flex;width: 15%;">
             <strong style="width: 100%; margin-top: 6px;" class="text-center">Sort by</strong>
-            <select class="form-control" style="margin-bottom: 10px;" onchange="insertParam(this.value)">
+            <select class="form-control" id='sort-option' style="margin-bottom: 10px;" onchange="insertParam(this.value)">
                 <option value="name">Name</option>
-                <option value="rating" selected>Rating</option>
+                <option value="rating">Rating</option>
                 <option value="catagory">Catagory</option>
             </select>
         </div>
@@ -131,6 +131,27 @@
 
         // reload page with new params
         document.location.search = params;
+    }
+
+    function selectOption(index){
+        document.getElementById("sort-option").options.selectedIndex = index;
+    }
+
+    window.onload = function() {
+        const urlSearchParams = new URLSearchParams(window.location.search);
+        const params = Object.fromEntries(urlSearchParams.entries());
+
+        if (params.sortByField) {
+            var map = {
+                name: 0,
+                rating: 1,
+                catagory: 2,
+            }
+            selectOption(params.sortByField);
+        } else {
+            selectOption(1);
+        }
+
     }
 
 </script>

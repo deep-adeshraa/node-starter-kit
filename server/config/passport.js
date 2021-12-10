@@ -81,6 +81,8 @@ module.exports = function (passport) {
 
                         if (isNaN(req.body.phone)) {
                             return done(null, false, req.flash('signupMessage', 'Wohh! Phone number should be a number'));
+                        } else if (req.body.phone.length != 10 ) {
+                            return done(null, false, req.flash('signupMessage', 'Wohh! Phone number should be of 10 digits'));
                         }
 
                         newUser.local.firstName = req.body.firstName;

@@ -2,12 +2,11 @@ var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
-var logger = require('morgan');
 var passport = require('passport');
 var flash = require('connect-flash');
 var mongoose = require('mongoose');
 var session = require('express-session');
-var MongoStore = require('connect-mongo')
+var MongoStore = require('connect-mongo');
 const Handlebars = require('handlebars');
 
 // We are using handlebase view engine
@@ -82,7 +81,6 @@ app.use(function (req, res, next) {
 });
 
 app.use(flash());
-app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
