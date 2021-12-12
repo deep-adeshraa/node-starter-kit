@@ -27,17 +27,4 @@ node tasks/seed.js
 npm start
 ```
 
-after starting web server, you can login of either of this account based on
-what functionalities you need to check
-
-user account
-------------
-- email: jainamdamanwala@gmail.com
-
-- password: jainam@123
-
-vendor user account
--------------
-- email: shubhamjiyani@gmail.com
-
-- password:shubham@123
+after starting web server, you can login any account from data.js
